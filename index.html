@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Search</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+
+<style type="text/css">
+	#engine {
+		font-weight: bold;
+	}
+</style>
+
+<script type="text/javascript">
+	function capitalizeFirstLetter(string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+	function setSearch(engine) {
+		console.log('Change search engine to ', engine);
+    searchForm.action = "http://www." + engine + ".com/search";    
+    engineDisplay.innerHTML = capitalizeFirstLetter(engine);          
+		search();
+	}
+	function search(event) {
+		console.log(event)
+		searchForm.submit();		
+	}
+</script>
+
+<form 
+	target="_blank"
+	onsubmit="search()" 
+>
+	<label for="q">
+		Web Search:
+	</label>
+	<input 
+		style="width: 55%"
+		type="search" 
+		name="q" 
+		placeholder="Type some text here" 
+		autofocus="" 
+	>	
+</form>
+
+<span style="display: inline-block;">
+	<button 
+		onclick="setSearch('google')"
+	>
+		Google!
+	</button>
+	<button 
+		onclick="setSearch('bing')"
+	>
+		Bing!
+	</button>		
+</span>
+
+<p>
+	Default Engine: 
+	<span id="engine" class="capitalize">
+		Google
+	</span>
+</p>
+
+<script type="text/javascript">
+	var engineDisplay = document.getElementById('engine');
+	var searchForm = document.forms[0];
+	searchForm.action = "http://www.google.com/search";
+</script>
+
+</body>
+</html>
