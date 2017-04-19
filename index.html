@@ -7,9 +7,10 @@
 <body>
 
 <style type="text/css">
-	body {
-		height: 100vw;
-	}
+body {
+	height: 97vh;
+	margin: 0;
+}
 </style>
 
 <script type="text/javascript">
@@ -36,6 +37,8 @@
 		return searchForm.submit();					
 	}
 </script>
+
+<main style="margin-left: 6px">
 
 <form 
 	onsubmit="search()" 
@@ -70,18 +73,20 @@
 		</span>
 	</span>
 </span>
+	
+</main>
 
 <iframe
-	id = "searchIframe"
+	id = "sf"
 	name="sf"
-	style="display: none; width: 100%;" 
+	style="display: none; width: 99%;" 
 >
   There would be Bing Search here but your browser does not support inline frames.
 </iframe>
 
 <script type="text/javascript">
 	var engineDisplay = document.getElementById('engine');
-	var searchIframe = document.getElementById('searchIframe');
+	var searchIframe = document.getElementById('sf');
 
 	var searchForm = document.forms[0];
 	var searchEngine = 'google';
