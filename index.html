@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Search</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body>
+
+<style type="text/css">
+	body, html, main {
+	  width: 100%; 
+	  height: 100%; 
+	  padding: 0; 
+	  margin: 0
+	}
+	html {
+		height: 100%;
+	}
+	iframe {
+		width: 100%;
+		border: none;
+		border-top: solid thin;
+		border-top-style: groove;
+	}
+	input, button {
+	  font-size: .6em;
+	}
+	.margin-left, .items-ml > * ~ * {
+		margin-left: 1em;
+	}
+	.margin-left-0 {
+		margin-left: .2em;
+	}
+	.margin-top, .items-mt > * + * {
+		margin-top: .6em;
+	}
+	.margin-adjust {
+		margin-top: -.2em;
+		/*display: block;*/
+	}
+	.padding-box {
+		padding: .5em;
+	}
+	.flexbox {
+		display: flex;
+	}
+	.in-block {
+	}
+	.column {
+		flex-flow: column;
+	}
+	.flex-item-grow {
+		flex: 1;
+	}
+	.ai-stretch {
+		align-items: stretch;
+	}
+	.bold {
+		font-weight: bold;
+	}
+</style>
+
+<script type="text/javascript">
+	function capitalizeFirstLetter (string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+	function engineUrl (engine) {
+		return "http://www." + engine + ".com/search";
+	}
+	function setSearch(engine) {
+		console.log('Change search engine to ', engine);
+		searchEngine = engine;
+    searchForm.action = searchUrl = engineUrl(engine);
+    engineDisplay.textContent = capitalizeFirstLetter(engine);  
+    setNotice(noIframe, engine);        
+		return search();
+	}
+	function setNotice (element, engine) {
+		element.textContent = (engine == 'bing')
+			? 'Search results will appear here...'
+			: 'Search results will appear in another tab as Google refuses to run in a frame...'
+	}
+	function search () {
+		if (searchEngine == 'google') {
+			noIframe.style.display = 'block';
+			searchForm.target = '_blank';
+			searchIframe.style.display = 'none';
+		} else {
+			noIframe.style.display = 'none';
+			searchForm.target = 'iframe';
+			// searchIframe.src = searchUrl;
+			searchIframe.style.display = 'block';
+			// searchIframe.style.height = document.body.clientHeight - searchIframe.offsetTop + 'px';
+		}
+		return searchForm.submit();					
+	}
+</script>
+
+<main class="flexbox column ai-stretch">
+
+	<section class="padding-box items-mt">
+
+		<form 
+			class="flexbox items-ml" 
+			onsubmit="search()" 
+		>
+			<label for="q">
+				Web Search:
+			</label>
+			<input 
+				class="flex-item-grow"
+				type="search" 
+				name="q" 
+				placeholder="Type some text here" 
+				autofocus="" 
+			>	
+		</form>
+
+		<section class="flexbox ai-stretch items-ml">
+			<div class="flexbox">
+				<button 
+					onclick="setSearch('google')"
+				>
+					Google!
+				</button>
+			</div>
+
+			<div class="flexbox">
+				<button 
+					onclick="setSearch('bing')"
+				>
+					Bing!
+				</button>
+			</div>
+
+			<span class="flexbox">
+				<span class="mmargin-adjust">
+					Default: 
+				</span>
+				<span id="engine" class="bold margin-left-0 mmargin-adjust">
+					Google
+				</span>
+			</span>
+		</section>
+		
+		<div id="no-iframe" class=""></div>
+
+	</section>
+
+	<iframe
+		class="flex-item-grow"
+		name="iframe"
+		style="display: none"
+	>
+	  There would be Bing Search here but your browser does not support inline frames.
+	</iframe>
+
+</main>
+
+
+<script type="text/javascript">
+	// var searchEngine = 'google';
+	var searchEngine = 'bing';
+
+ 	var engineDisplay = document.getElementById('engine');
+	engineDisplay.textContent = capitalizeFirstLetter(searchEngine);
+
+	var searchIframe = document.getElementsByTagName('iframe')[0];
+	var searchForm = document.forms[0];
+	searchForm.target = '_blank';
+	searchForm.action = searchUrl = engineUrl(searchEngine);
+
+	var noIframe = document.getElementById('no-iframe');
+  setNotice(noIframe, searchEngine);        
+</script>
+
+</body>
+</html>
