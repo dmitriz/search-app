@@ -43,20 +43,26 @@
 </style>
 
 <script type="text/javascript">
-	function capitalizeFirstLetter(string) {
+	function capitalizeFirstLetter (string) {
 	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 	}
-	function engineUrl(engine) {
+	function engineUrl (engine) {
 		return "http://www." + engine + ".com/search";
 	}
 	function setSearch(engine) {
 		console.log('Change search engine to ', engine);
 		searchEngine = engine;
     searchForm.action = searchUrl = engineUrl(engine);
-    engineDisplay.textContent = capitalizeFirstLetter(engine);          
+    engineDisplay.textContent = capitalizeFirstLetter(engine);  
+    setNotice(noIframe, engine);        
 		return search();
 	}
-	function search() {
+	function setNotice (element, engine) {
+		element.textContent = (engine == 'bing')
+			? 'Search results will appear here...'
+			: 'Search results will appear in another tab as Google refuses to run in a frame...'
+	}
+	function search () {
 		if (searchEngine == 'google') {
 			searchForm.target = '_blank';
 			searchIframe.style.display = 'none';
@@ -116,6 +122,8 @@
 	  There would be Bing Search here but your browser does not support inline frames.
 	</iframe>
 
+	<div id="no-iframe"></div>
+
 </main>
 
 
@@ -130,6 +138,9 @@
 	var searchForm = document.forms[0];
 	searchForm.target = '_blank';
 	searchForm.action = searchUrl = engineUrl(searchEngine);
+
+	var noIframe = document.getElementById('no-iframe');
+  setNotice(noIframe, searchEngine);        
 </script>
 
 </body>
