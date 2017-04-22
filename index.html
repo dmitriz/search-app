@@ -22,17 +22,26 @@
 		border-top: solid thin;
 		border-top-style: groove;
 	}
+	input, button {
+	  font-size: .6em;
+	}
 	.margin-left-1 {
 		margin-left: 1em;
 	}
 	.margin-top-1 {
-		margin-top: .5em;
+		margin-top: .6em;
+	}
+	.margin-adjust {
+		margin-top: -.2em;
+		/*display: block;*/
 	}
 	.padding-box {
-		padding: 1em;
+		padding: .5em;
 	}
 	.flexbox {
 		display: flex;
+	}
+	.in-block {
 	}
 	.column {
 		flex-flow: column;
@@ -104,20 +113,27 @@
 		</form>
 
 		<section class="flexbox margin-top-1">
-			<button 
-				onclick="setSearch('google')"
-			>
-				Google!
-			</button>
-			<button 
-				class="margin-left-1" 
-				onclick="setSearch('bing')"
-			>
-				Bing!
-			</button>		
+			<div class="flexbox">
+				<button 
+					onclick="setSearch('google')"
+				>
+					Google!
+				</button>
+			</div>
+
+			<div class="flexbox margin-left-1">
+				<button 
+					onclick="setSearch('bing')"
+				>
+					Bing!
+				</button>
+			</div>
+
 			<span class="margin-left-1">
-				Default: 
-				<span id="engine" class="bold">
+				<span class="margin-adjust">
+					Default: 
+				</span>
+				<span id="engine" class="bold margin-adjust">
 					Google
 				</span>
 			</span>
