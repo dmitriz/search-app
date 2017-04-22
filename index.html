@@ -7,13 +7,19 @@
 <body>
 
 <style type="text/css">
+body, html, iframe {
+  width: 100%; 
+  height: 100%; 
+  border: none; 
+  padding: 0; 
+  margin: 0
+}
 html {
 	height: 100%;
 }
 body {
 	/*height: 97vh;*/
 	height: 98%;
-	margin: 0;
 }
 iframe {
 /*	border: 0;
@@ -25,11 +31,14 @@ iframe {
 	function capitalizeFirstLetter(string) {
 	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 	}
+	function engineUrl(engine) {
+		return "http://www." + engine + ".com/search";
+	}
 	function setSearch(engine) {
 		console.log('Change search engine to ', engine);
 		searchEngine = engine;
-    searchForm.action = searchUrl = "http://www." + engine + ".com/search";
-    engineDisplay.innerHTML = capitalizeFirstLetter(engine);          
+    searchForm.action = searchUrl = engineUrl(engine);
+    engineDisplay.textContent = capitalizeFirstLetter(engine);          
 		return search();
 	}
 	function search() {
@@ -37,10 +46,10 @@ iframe {
 			searchForm.target = '_blank';
 			searchIframe.style.display = 'none';
 		} else {
-			searchForm.target = 'sf';
+			searchForm.target = 'iframe';
 			// searchIframe.src = searchUrl;
 			searchIframe.style.display = 'block';
-			searchIframe.style.height = document.body.clientHeight - searchIframe.offsetTop + 'px';
+			// searchIframe.style.height = document.body.clientHeight - searchIframe.offsetTop + 'px';
 		}
 		return searchForm.submit();					
 	}
@@ -85,21 +94,23 @@ iframe {
 </main>
 
 <iframe
-	id = "sf"
-	name="sf"
-	style="display: none; width: 99%;" 
+	name="iframe"
+	style="display: none"
 >
   There would be Bing Search here but your browser does not support inline frames.
 </iframe>
 
 <script type="text/javascript">
-	var engineDisplay = document.getElementById('engine');
-	var searchIframe = document.getElementById('sf');
+	// var searchEngine = 'google';
+	var searchEngine = 'bing';
 
+ 	var engineDisplay = document.getElementById('engine');
+	engineDisplay.textContent = capitalizeFirstLetter(searchEngine);
+
+	var searchIframe = document.getElementsByTagName('iframe')[0];
 	var searchForm = document.forms[0];
-	var searchEngine = 'google';
 	searchForm.target = '_blank';
-	searchForm.action = searchUrl = "http://www.google.com/search";
+	searchForm.action = searchUrl = engineUrl(searchEngine);
 </script>
 
 </body>
