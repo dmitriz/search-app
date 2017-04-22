@@ -64,9 +64,11 @@
 	}
 	function search () {
 		if (searchEngine == 'google') {
+			noIframe.style.display = 'block';
 			searchForm.target = '_blank';
 			searchIframe.style.display = 'none';
 		} else {
+			noIframe.style.display = 'none';
 			searchForm.target = 'iframe';
 			// searchIframe.src = searchUrl;
 			searchIframe.style.display = 'block';
