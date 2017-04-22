@@ -31,7 +31,7 @@
 	.margin-left-0 {
 		margin-left: .2em;
 	}
-	.margin-top, .items-mt > * ~ * {
+	.margin-top, .items-mt > * + * {
 		margin-top: .6em;
 	}
 	.margin-adjust {
@@ -98,7 +98,7 @@
 
 <main class="flexbox column ai-stretch">
 
-	<section class="padding-box">
+	<section class="padding-box items-mt">
 
 		<form 
 			class="flexbox items-ml" 
@@ -116,7 +116,7 @@
 			>	
 		</form>
 
-		<section class="flexbox ai-stretch margin-top items-ml">
+		<section class="flexbox ai-stretch items-ml">
 			<div class="flexbox">
 				<button 
 					onclick="setSearch('google')"
@@ -143,7 +143,7 @@
 			</span>
 		</section>
 		
-		<div id="no-iframe" class="margin-top"></div>
+		<div id="no-iframe" class=""></div>
 
 	</section>
 
