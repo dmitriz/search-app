@@ -23,10 +23,13 @@
 		border-top-style: groove;
 	}
 	input, button {
-	  font-size: .7em;
+	  font-size: .6em;
 	}
 	.margin-left-1 {
 		margin-left: 1em;
+	}
+	.margin-left-0 {
+		margin-left: .2em;
 	}
 	.margin-top-1 {
 		margin-top: .6em;
@@ -49,7 +52,7 @@
 	.flex-item-grow {
 		flex: 1;
 	}
-	.content-stretch {
+	.ai-stretch {
 		align-items: stretch;
 	}
 	.bold {
@@ -93,7 +96,7 @@
 	}
 </script>
 
-<main class="flexbox column content-stretch">
+<main class="flexbox column ai-stretch">
 
 	<section class="padding-box">
 		<form 
@@ -112,7 +115,7 @@
 			>	
 		</form>
 
-		<section class="flexbox margin-top-1">
+		<section class="flexbox ai-stretch margin-top-1">
 			<div class="flexbox">
 				<button 
 					onclick="setSearch('google')"
@@ -129,11 +132,11 @@
 				</button>
 			</div>
 
-			<span class="margin-left-1">
-				<span class="margin-adjust">
+			<span class="flexbox margin-left-1">
+				<span class="mmargin-adjust">
 					Default: 
 				</span>
-				<span id="engine" class="bold margin-adjust">
+				<span id="engine" class="bold margin-left-0 mmargin-adjust">
 					Google
 				</span>
 			</span>
