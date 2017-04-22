@@ -137,19 +137,13 @@
 
 		set_engine(window.engine);
   }  
-	function capitalize (string) {
-	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-	}
-	function engine_url (engine) {
-		return 'https://www.' + engine + '.com/search';
-	}
 	function set_engine (engine) {
 		console.log('Change search engine to ', engine);
 
 		window.engine = engine;
-    window.search_form.action = engine_url(engine);
     window.engine_display.textContent = capitalize(engine);
-    
+    window.search_form.action = engine_url(engine);
+
     set_notice(window.notice_elm, engine);        
 	}
 	function set_notice (element, engine) {
@@ -159,10 +153,18 @@
 	}
 	function search () {
 		var isGoogle = 'google' === window.engine;
-		window.notice_elm.style.display      = isGoogle ? 'block'  : 'none';
-		window.search_form.target        = isGoogle ? '_blank' : 'iframe';
+
+		window.notice_elm.style.display  = isGoogle ? 'block'  : 'none';
 		window.results_elm.style.display = isGoogle ? 'none'   : 'block';
+		window.search_form.target        = isGoogle ? '_blank' : 'iframe';
+
 		return window.search_form.submit();					
+	}
+	function capitalize (string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+	function engine_url (engine) {
+		return 'https://www.' + engine + '.com/search';
 	}
 </script>
 
