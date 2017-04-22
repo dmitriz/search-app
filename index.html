@@ -60,47 +60,13 @@
 	}
 </style>
 
-<script type="text/javascript">
-	function capitalizeFirstLetter (string) {
-	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-	}
-	function engineUrl (engine) {
-		return "https://www." + engine + ".com/search";
-	}
-	function setSearch(engine) {
-		console.log('Change search engine to ', engine);
-		searchEngine = engine;
-    searchForm.action = searchUrl = engineUrl(engine);
-    engineDisplay.textContent = capitalizeFirstLetter(engine);  
-    setNotice(noIframe, engine);        
-		return search();
-	}
-	function setNotice (element, engine) {
-		element.textContent = (engine == 'bing')
-			? 'Search results will appear here...'
-			: 'Search results will appear in another tab as Google refuses to run in a frame...'
-	}
-	function search () {
-		if (searchEngine == 'google') {
-			noIframe.style.display = 'block';
-			searchForm.target = '_blank';
-			searchIframe.style.display = 'none';
-		} else {
-			noIframe.style.display = 'none';
-			searchForm.target = 'iframe';
-			// searchIframe.src = searchUrl;
-			searchIframe.style.display = 'block';
-			// searchIframe.style.height = document.body.clientHeight - searchIframe.offsetTop + 'px';
-		}
-		return searchForm.submit();					
-	}
-</script>
 
 <main class="flexbox column ai-stretch">
 
 	<section class="padding-box items-mt">
 
 		<form 
+			id="search_form"
 			class="flexbox items-ml" 
 			onsubmit="search()" 
 		>
@@ -119,7 +85,7 @@
 		<section class="flexbox ai-stretch items-ml">
 			<div class="flexbox">
 				<button 
-					onclick="setSearch('google')"
+					onclick="set_engine('google'); search()"
 				>
 					Google!
 				</button>
@@ -127,7 +93,7 @@
 
 			<div class="flexbox">
 				<button 
-					onclick="setSearch('bing')"
+					onclick="set_engine('bing'); search()"
 				>
 					Bing!
 				</button>
@@ -143,13 +109,14 @@
 			</span>
 		</section>
 		
-		<div id="no-iframe" class=""></div>
+		<div id="notice" class=""></div>
 
 	</section>
 
 	<iframe
-		class="flex-item-grow"
+		id="results"
 		name="iframe"
+		class="flex-item-grow"
 		style="display: none"
 	>
 	  There would be Bing Search here but your browser does not support inline frames.
@@ -159,19 +126,44 @@
 
 
 <script type="text/javascript">
-	// var searchEngine = 'google';
-	var searchEngine = 'bing';
+  init();
+  function init () {
+		// window.engine = 'google';
+		window.engine = 'bing';
+	 	window.engine_display = document.getElementById('engine');
+		window.search_form = document.getElementById('search_form');
+		window.results_elm = document.getElementById('results');
+		window.notice_elm = document.getElementById('notice');
 
- 	var engineDisplay = document.getElementById('engine');
-	engineDisplay.textContent = capitalizeFirstLetter(searchEngine);
+		set_engine(window.engine);
+  }  
+	function capitalize (string) {
+	  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+	}
+	function engine_url (engine) {
+		return 'https://www.' + engine + '.com/search';
+	}
+	function set_engine (engine) {
+		console.log('Change search engine to ', engine);
 
-	var searchIframe = document.getElementsByTagName('iframe')[0];
-	var searchForm = document.forms[0];
-	searchForm.target = '_blank';
-	searchForm.action = searchUrl = engineUrl(searchEngine);
-
-	var noIframe = document.getElementById('no-iframe');
-  setNotice(noIframe, searchEngine);        
+		window.engine = engine;
+    window.search_form.action = engine_url(engine);
+    window.engine_display.textContent = capitalize(engine);
+    
+    set_notice(window.notice_elm, engine);        
+	}
+	function set_notice (element, engine) {
+		element.textContent = 'bing' === engine
+			? 'Search results will appear here...'
+			: 'Search results will appear in another tab as Google refuses to run in a frame...'
+	}
+	function search () {
+		var isGoogle = 'google' === window.engine;
+		window.notice_elm.style.display      = isGoogle ? 'block'  : 'none';
+		window.search_form.target        = isGoogle ? '_blank' : 'iframe';
+		window.results_elm.style.display = isGoogle ? 'none'   : 'block';
+		return window.search_form.submit();					
+	}
 </script>
 
 </body>
