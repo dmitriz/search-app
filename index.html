@@ -25,6 +25,12 @@
 	.margin-left-1 {
 		margin-left: 1em;
 	}
+	.margin-top-1 {
+		margin-top: .5em;
+	}
+	.padding-box {
+		padding: 1em;
+	}
 	.flexbox {
 		display: flex;
 	}
@@ -80,41 +86,46 @@
 
 <main class="flexbox column content-stretch">
 
-	<form 
-		class="flexbox" 
-		onsubmit="search()" 
-	>
-		<label for="q">
-			Web Search:
-		</label>
-		<input 
-			class="flex-item-grow"
-			type="search" 
-			name="q" 
-			placeholder="Type some text here" 
-			autofocus="" 
-		>	
-	</form>
+	<section class="padding-box">
+		<form 
+			class="flexbox" 
+			onsubmit="search()" 
+		>
+			<label for="q">
+				Web Search:
+			</label>
+			<input 
+				class="flex-item-grow margin-left-1"
+				type="search" 
+				name="q" 
+				placeholder="Type some text here" 
+				autofocus="" 
+			>	
+		</form>
 
-	<section class="flexbox">
-		<button 
-			onclick="setSearch('google')"
-		>
-			Google!
-		</button>
-		<button 
-			onclick="setSearch('bing')"
-		>
-			Bing!
-		</button>		
-		<span>
-			Default: 
-			<span id="engine" class="bold">
-				Google
+		<section class="flexbox margin-top-1">
+			<button 
+				onclick="setSearch('google')"
+			>
+				Google!
+			</button>
+			<button 
+				class="margin-left-1" 
+				onclick="setSearch('bing')"
+			>
+				Bing!
+			</button>		
+			<span class="margin-left-1">
+				Default: 
+				<span id="engine" class="bold">
+					Google
+				</span>
 			</span>
-		</span>
+		</section>
+		
+		<div id="no-iframe" class="margin-top-1"></div>
+
 	</section>
-	
 
 	<iframe
 		class="flex-item-grow"
@@ -123,8 +134,6 @@
 	>
 	  There would be Bing Search here but your browser does not support inline frames.
 	</iframe>
-
-	<div id="no-iframe"></div>
 
 </main>
 
